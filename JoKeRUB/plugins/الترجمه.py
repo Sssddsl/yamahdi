@@ -42,7 +42,7 @@ async def gtrans(text, lan):
     try:
         response = translate(text, lang_tgt=lan)
         if response == 400:
-            return Flase
+            return False  # تصحيح خطأ الإملاء هنا
     except Exception as er:
         return f"حدث خطأ \n{er}"
     return response
@@ -52,9 +52,9 @@ async def Reda(event):
     if event.reply_to_msg_id:
         m = await event.get_reply_message()
         with open("reply.txt", "w") as file:
-                file.write(str(m))
+            file.write(str(m))
         await event.client.send_file(event.chat_id, "reply.txt")
-        os.remove("reply.txt")
+        os.remove("reply.txt")  # تأكد من حذف الملف بعد إرساله
 
 @l313l.ar_cmd(
     pattern="ترجمة ([\s\S]*)",
@@ -89,13 +89,11 @@ async def _(event):
     try:
         trans = await gtrans(text, lan)
         if not trans:
-            return await edit_delete(event, "**تحقق من رمز اللغة !, لا يوجد هكذا لغة**")      
-        output_str = f"**تمت الترجمة من ar الى {lan}**\
-                \n`{trans}`"
+            return await edit_delete(event, "**تحقق من رمز اللغة !, لا يوجد هكذا لغة**")
+        output_str = f"**تمت الترجمة من ar الى {lan}**\n`{trans}`"
         await edit_or_reply(event, output_str)
     except Exception as exc:
-        await edit_delete(event, f"**خطا:**\n`{exc}`", time=5)
-
+        await edit_delete(event, f"**خطأ:**\n`{exc}`", time=5)
 
 @l313l.ar_cmd(pattern="(الترجمة الفورية|الترجمه الفوريه|ايقاف الترجمة|ايقاف الترجمه)")
 async def reda(event):
@@ -103,14 +101,13 @@ async def reda(event):
         delgvar("transnow")
         await edit_delete(event, "**᯽︙ تم تعطيل الترجمه الفورية **")
     else:
-        addgvar("transnow", "Reda") 
+        addgvar("transnow", "Reda")
         await edit_delete(event, "**᯽︙ تم تفعيل الترجمه الفورية**")
 
 @l313l.ar_cmd(pattern="لغة الترجمة")
 async def Reda_is_Here(event):
-    t = event.text.replace(".لغة الترجمة", "")
-    t = t.replace(" ", "")
-    try:  
+    t = event.text.replace(".لغة الترجمة", "").replace(" ", "")
+    try:
         lang = langs[t]
     except BaseException as er:
         return await edit_delete(event, "**᯽︙ !تأكد من قائمة اللغات. لا يوجد هكذا لغة**")
@@ -122,7 +119,7 @@ async def Reda_is_Here(event):
 async def reda(event):
     if gvarstatus("transnow"):
         if event.media or isinstance(event.media, types.MessageMediaDocument) or isinstance(event.media, types.MessageMediaInvoice):
-            print ("JoKeRUB")
+            print("JoKeRUB")
         else:
             original_message = event.message.message
             translated_message = await gtrans(soft_deEmojify(original_message.strip()), gvarstatus("translang") or "en")
