@@ -271,123 +271,82 @@ async def _(event):
 
 
 
-@l313l.ar_cmd(
-    pattern="حذف المحظورين$",
-    command=("حذف المحظورين", plugin_category),
-    info={
-        "header": "To unban all banned users from group.",
-        "usage": [
-            "{tr}unbanall",
-        ],
-    },
-    groups_only=True,
-    require_admin=True,
-)
-async def _(event):
-    "To unban all banned users from group."
-    catevent = await edit_or_reply(
-        event, "**᯽︙ يتـم الـغاء حـظر الجـميع فـي هذه الـدردشـة**"
-    )
-    succ = 0
-    total = 0
-    flag = False
-    chat = await event.get_chat()
-    async for i in event.client.iter_participants(
-        event.chat_id, filter=ChannelParticipantsKicked, aggressive=True
-    ):
-        total += 1
-        rights = ChatBannedRights(until_date=0, view_messages=False)
-        try:
-            await event.client(
-                functions.channels.EditBannedRequest(event.chat_id, i, rights)
-            )
-        except FloodWaitError as e:
-            LOGS.warn(f"لقد حدث عمليه تكرار كثير ارجو اعادة الامر او انتظر")
-            await catevent.edit(
-                f"أنتـظر لـ {readable_time(e.seconds)} تحتاط لاعادة الامر لاكمال العملية"
-            )
-            await sleep(e.seconds + 5)
-        except Exception as ex:
-            await catevent.edit(str(ex))
-        else:
-            succ += 1
-            if flag:
-                await sleep(2)
-            else:
-                await sleep(1)
-            try:
-                if succ % 10 == 0:
-                    await catevent.edit(
-                        f"᯽︙  الغاء حظر جميع الحسابات\nتم الغاء حظر جميع الاعضاء بنجاح ✅"
-                    )
-            except MessageNotModifiedError:
-                pass
-    await catevent.edit(f"᯽︙ الغاء حظر :__{succ}/{total} في الدردشه {chat.title}__")
+from telethon.errors import ChatAdminRequiredError, UserAdminInvalidError
+from telethon.utils import sleep
+from JoKeRUB import l313l
 
-# Ported by ©[NIKITA](t.me/kirito6969) and ©[EYEPATCH](t.me/NeoMatrix90)
+plugin_category = "admin"
+
 @l313l.ar_cmd(
     pattern="المحذوفين ?([\s\S]*)",
     command=("المحذوفين", plugin_category),
     info={
-        "header": "To check deleted accounts and clean",
-        "description": "Searches for deleted accounts in a group. Use `.zombies clean` to remove deleted accounts from the group.",
-        "usage": ["{tr}zombies", "{tr}zombies clean"],
+        "header": "لتحقق من الحسابات المحذوفة وتنظيفها",
+        "description": "يبحث عن حسابات محذوفة في مجموعة. استخدم `.المحذوفين اطردهم` لإزالة الحسابات المحذوفة من المجموعة.",
+        "usage": ["{tr}المحذوفين", "{tr}المحذوفين اطردهم"],
     },
     groups_only=True,
 )
 async def rm_deletedacc(show):
-    "To check deleted accounts and clean"
-    con = show.pattern_match.group(1).lower()
-    del_u = 0
-    del_status = "᯽︙  لم يتم العثور على حسابات متروكه او حسابات محذوفة الكروب نظيف"
-    if con != "اطردهم":
-        event = await edit_or_reply(
-            show, "᯽︙  يتم البحث عن حسابات محذوفة او حسابات متروكة انتظر"
-        )
+    "للتحقق من الحسابات المحذوفة وتنظيفها"
+    command = show.pattern_match.group(1).lower()
+    deleted_users_count = 0
+    no_deleted_msg = "᯽︙ لم يتم العثور على حسابات متروكة أو محذوفة، المجموعة نظيفة."
+    
+    if command != "اطردهم":
+        event = await edit_or_reply(show, "᯽︙ يتم البحث عن حسابات محذوفة، انتظر...")
         async for user in show.client.iter_participants(show.chat_id):
             if user.deleted:
-                del_u += 1
+                deleted_users_count += 1
                 await sleep(0.5)
-        if del_u > 0:
-            del_status = f"᯽︙ تـم العـثور : **{del_u}** على حسابات محذوفة ومتروكه في هذه الدردشه من الحسابات في هذه الدردشه,\
-                           \nاطردهم بواسطه  `.المحذوفين اطردهم`"
-        await event.edit(del_status)
+                
+        if deleted_users_count > 0:
+            response_msg = f"᯽︙ تم العثور على **{deleted_users_count}** حسابات محذوفة في هذه الدردشة،\
+                            \nيمكنك طردهم بواسطة `.المحذوفين اطردهم`."
+        else:
+            response_msg = no_deleted_msg
+        
+        await event.edit(response_msg)
         return
+
     chat = await show.get_chat()
-    admin = chat.admin_rights
-    creator = chat.creator
-    if not admin and not creator:
-        await edit_delete(show, "أنا لسـت مشرف هـنا", 5)
+    is_admin = chat.admin_rights or chat.creator
+    
+    if not is_admin:
+        await edit_or_reply(show, "᯽︙ ليس لدي صلاحيات كافية هنا.", 5)
         return
-    event = await edit_or_reply(
-        show, "᯽︙ جاري حذف الحسابات المحذوفة"
-    )
-    del_u = 0
-    del_a = 0
+    
+    event = await edit_or_reply(show, "᯽︙ جاري حذف الحسابات المحذوفة...")
+    deleted_users_count = 0
+    admin_deleted_count = 0
+    
     async for user in show.client.iter_participants(show.chat_id):
         if user.deleted:
             try:
                 await show.client.kick_participant(show.chat_id, user.id)
                 await sleep(0.5)
-                del_u += 1
+                deleted_users_count += 1
             except ChatAdminRequiredError:
-                await edit_delete(event, "᯽︙  ليس لدي صلاحيات الحظر هنا", 5)
+                await edit_or_reply(event, "᯽︙ ليس لدي صلاحيات الحظر هنا.", 5)
                 return
             except UserAdminInvalidError:
-                del_a += 1
-    if del_u > 0:
-        del_status = f"التنظيف **{del_u}** من الحسابات المحذوفة"
-    if del_a > 0:
-        del_status = f"التنظيف **{del_u}** من الحسابات المحذوف \
-        \n**{del_a}** لا يمكنني حذف حسابات المشرفين المحذوفة"
-    await edit_delete(event, del_status, 5)
+                admin_deleted_count += 1
+    
+    if deleted_users_count > 0:
+        response_msg = f"التنظيف: **{deleted_users_count}** حسابات محذوفة تم حذفها."
+    if admin_deleted_count > 0:
+        response_msg += f"\n**{admin_deleted_count}** حسابات لم أستطع حذفها لأنها مشرفين."
+    
+    await edit_or_reply(event, response_msg, 5)
+    
     if BOTLOG:
         await show.client.send_message(
             BOTLOG_CHATID,
-            f"#تنـظيف الـمحذوفات\
-            \n{del_status}\
-            \nالـدردشة: {show.chat.title}(`{show.chat_id}`)",
+            f"#تنظيف المحذوفات\
+            \n{response_msg}\
+            \nالدردشة: {show.chat.title}(`{show.chat_id}`)",
         )
+
 
 @l313l.ar_cmd(pattern="حظر_الكل(?:\s|$)([\s\S]*)")
 async def banall(event):
@@ -911,8 +870,8 @@ async def handle_messages(event):
             await event.delete()
             if sender_id not in aljoker_Menu:
                 aljoker_time = aljoker_waqt()
-                aljoker_message = gvarstatus("aljoker_message") or f"صاحب الحساب قافل خاصة قبل يلا دعبل"
-                aljoker_url = gvarstatus("aljoker_url") or "https://telegra.ph/file/ee30cda28bd1346e54cb3.jpg"
+                aljoker_message = gvarstatus("aljoker_message") or f" صاحب الحساب غير متواجد !! "
+                aljoker_url = gvarstatus("aljoker_url") or "https://forkgraph.zaid.pro/file/Qs0KYYCtvbCI"
                 await l313l.send_file(sender_id, aljoker_url, caption=f'**{aljoker_message}**\n**مدة الغياب: {aljoker_time}**')
                 aljoker_Menu.add(sender_id)
 @l313l.ar_cmd(pattern="الخاص تعطيل")
