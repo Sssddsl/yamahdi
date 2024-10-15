@@ -62,8 +62,8 @@ async def Hussein(event):
     await event.client.reload(joker)
 
 @l313l.ar_cmd(
-    pattern="اطفاء$",
-    command=("اطفاء", plugin_category),
+    pattern="ءء$",
+    command=("ءء", plugin_category),
     info={
         "header": "Shutdowns the bot !!",
         "description": "To turn off the dyno of heroku. you cant turn on by bot you need to got to heroku and turn on or use @hk_heroku_bot",
@@ -120,7 +120,7 @@ async def Hussein(event):
         reply_msg = await event.get_reply_message()
         owner_id = reply_msg.from_id
         if owner_id == l313l.uid:
-            if event.message.message == "اطفاء":
+            if event.message.message == "نن":
                     await event.reply("**᯽︙ تدلل مولاي تم اطفاء السورس بواسطة تاج راسك 😁**")
                     if HEROKU_APP is not None:
                         HEROKU_APP.process_formation()["worker"].scale(0)
