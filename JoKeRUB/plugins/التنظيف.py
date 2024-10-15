@@ -1,160 +1,4 @@
-# JoKeRUB module for purging unneeded messages(usually spam or ot).
-import re
-from asyncio import sleep
-
-from telethon.errors import rpcbaseerrors
-from telethon.tl.types import (
-    InputMessagesFilterDocument,
-    InputMessagesFilterEmpty,
-    InputMessagesFilterGeo,
-    InputMessagesFilterGif,
-    InputMessagesFilterMusic,
-    InputMessagesFilterPhotos,
-    InputMessagesFilterRoundVideo,
-    InputMessagesFilterUrl,
-    InputMessagesFilterVideo,
-    InputMessagesFilterVoice,
-)
-
-from JoKeRUB import l313l
-
-from ..core.managers import edit_delete, edit_or_reply
-from ..helpers.utils import reply_id
-from . import BOTLOG, BOTLOG_CHATID
-
-plugin_category = "utils"
-
-
-purgelist = {}
-
-purgetype = {
-    "ب": InputMessagesFilterVoice,
-    "م": InputMessagesFilterDocument,
-    "ح": InputMessagesFilterGif,
-    "ص": InputMessagesFilterPhotos,
-    "l": InputMessagesFilterGeo,
-    "غ": InputMessagesFilterMusic,
-    "r": InputMessagesFilterRoundVideo,
-    "ق": InputMessagesFilterEmpty,
-    "ر": InputMessagesFilterUrl,
-    "ف": InputMessagesFilterVideo,
-    # "ك": search
-}
-
-
-@l313l.ar_cmd(
-    pattern="مسح(\s*| \d+)$",
-    command=("مسح", plugin_category),
-    info={
-        "header": "To delete replied message.",
-        "description": "Deletes the message you replied to in x(count) seconds if count is not used then deletes immediately",
-        "usage": ["{tr}del <time in seconds>", "{tr}del"],
-        "examples": "{tr}del 2",
-    },
-)
-async def delete_it(event):
-    "To delete replied message."
-    input_str = event.pattern_match.group(1).strip()
-    msg_src = await event.get_reply_message()
-    if msg_src:
-        if input_str and input_str.isnumeric():
-            await event.delete()
-            await sleep(int(input_str))
-            try:
-                await msg_src.delete()
-                if BOTLOG:
-                    await event.client.send_message(
-                        BOTLOG_CHATID, "#الـمسـح \n ᯽︙ تـم حـذف الـرسالة بـنجاح"
-                    )
-            except rpcbaseerrors.BadRequestError:
-                if BOTLOG:
-                    await event.client.send_message(
-                        BOTLOG_CHATID,
-                        "᯽︙ لا يمـكنني الـحذف احـتاج صلاحيـات الادمـن",
-                    )
-        elif input_str:
-            if not input_str.startswith("var"):
-                await edit_or_reply(event, "᯽︙ عـذرا الـرسالة غيـر موجـودة")
-        else:
-            try:
-                await msg_src.delete()
-                await event.delete()
-                if BOTLOG:
-                    await event.client.send_message(
-                        BOTLOG_CHATID, "#الـمسـح \n ᯽︙ تـم حـذف الـرسالة بـنجاح"
-                    )
-            except rpcbaseerrors.BadRequestError:
-                await edit_or_reply(event, "᯽︙ عـذرا الـرسالة لا استـطيع حـذفها")
-    elif not input_str:
-        await event.delete()
-
-
-@l313l.ar_cmd(
-    pattern="مسح رسائلي$",
-    command=("مسح رسائلي", plugin_category),
-    info={
-        "header": "To purge your latest messages.",
-        "description": "Deletes x(count) amount of your latest messages.",
-        "usage": "{tr}purgeme <count>",
-        "examples": "{tr}purgeme 2",
-    },
-)
-async def Hussein(event):
-    "To purge your latest messages."
-    message = event.text
-    count = 0
-    async for message in event.client.iter_messages(event.chat_id, from_user='me'):
-        count += 1
-        await message.delete()
-
-    smsg = await event.client.send_message(
-        event.chat_id,
-    "**أنتهى التنظيف** تم حذف " + str(count) + " من الرسائل التي تم إرسالها من قبلك في المجموعة.",    
-    )
-    if BOTLOG:
-        await event.client.send_message(
-            BOTLOG_CHATID,
-        "**أنتهى التنظيف** تم حذف " + str(count) + " من الرسائل التي تم إرسالها من قبلك في المجموعة.",    
-    )
-    await sleep(5)
-    await smsg.delete()
-
-
-# TODO: only sticker messages.
-@l313l.ar_cmd(
-    pattern="تنظيف(?:\s|$)([\s\S]*)",
-    command=("تنظيف", plugin_category),
-    info={
-        "header": "لـحذف الـرسائل .",
-        "description": "•  Deletes the x(count) amount of messages from the replied message\
-        \n•  If you don't use count then deletes all messages from the replied messages\
-        \n•  If you haven't replied to any message and used count then deletes recent x messages.\
-        \n•  If you haven't replied to any message or havent mentioned any flag or count then doesnt do anything\
-        \n•  If flag is used then selects that type of messages else will select all types\
-        \n•  You can use multiple flags like -gi 10 (It will delete 10 images and 10 gifs but not 10 messages of combination images and gifs.)\
-        ",
-        "الاضافه": {
-            "البصمات": "لحـذف الرسائل الـصوتية.",
-            "الملفات": "لحـذف الملفات.",
-            "المتحركه": "لحـذف المتحـركه.",
-            "الصور": "لحـذف الـصور",
-            "الاغاني": "لحـذف الاغاني",
-            "الملصقات": "لحـذف الـملصقات",
-            "الروابط": "لحـذف الـروابط",
-            "الفديوهات": "لحـذف الفـيديوهـات",
-            "كلمه": " لحذف جميع النصوص التي تحتوي هذه الكلمه في الكروب",
-        },
-        "ااستخدام": [
-            "{tr}تنظيف <الاضافه(optional)> <count(x)> <reply> - to delete x flagged messages after reply",
-            "{tr}تنظيف <الاضافه> <رقم> - لحذف رسائل الاضافه",
-        ],
-        "examples": [
-            "{tr}تنظيف 40",
-            "{tr}تنظيف -المتحركه 40",
-            "{tr}تنظيف -كلمه الجوكر",
-        ],
-    },
-)
+# جزء من الكود
 async def fastpurger(event):  # sourcery no-metrics
     "To purge messages from the replied message"
     chat = await event.get_input_chat()
@@ -178,7 +22,7 @@ async def fastpurger(event):  # sourcery no-metrics
                     if ty in purgetype:
                         async for msg in event.client.iter_messages(
                             event.chat_id,
-                            limit=int(input_str),
+                            limit=int(input_str),  # حذفت الزيادة 1
                             offset_id=reply.id - 1,
                             reverse=True,
                             filter=purgetype[ty],
@@ -195,10 +39,9 @@ async def fastpurger(event):  # sourcery no-metrics
                     else:
                         error += f"\n\n᯽︙ `{ty}`  : هـذه أضافـة خاطئـة "
             else:
-                count += 1
                 async for msg in event.client.iter_messages(
                     event.chat_id,
-                    limit=(int(input_str) - 1),
+                    limit=int(input_str),  # حذفت الزيادة 1
                     offset_id=reply.id,
                     reverse=True,
                 ):
@@ -221,7 +64,7 @@ async def fastpurger(event):  # sourcery no-metrics
                 if cont.isnumeric():
                     async for msg in event.client.iter_messages(
                         event.chat_id,
-                        limit=int(cont),
+                        limit=int(cont),  # حذفت الزيادة 1
                         offset_id=reply.id - 1,
                         reverse=True,
                         search=inputstr,
@@ -343,7 +186,7 @@ async def fastpurger(event):  # sourcery no-metrics
             else:
                 error += f"\n᯽︙ `{ty}`  : هـذه أضافـة خاطئـة "
     elif input_str.isnumeric():
-        async for msg in event.client.iter_messages(chat, limit=int(input_str) + 1):
+        async for msg in event.client.iter_messages(chat, limit=int(input_str)):
             count += 1
             msgs.append(msg)
             if len(msgs) == 50:
