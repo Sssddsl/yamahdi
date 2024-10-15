@@ -39,7 +39,7 @@ NO_ADMIN = "**᯽︙ أنا لست مشرف هنا!!** "
 NO_PERM = "**᯽︙ ليس لدي أذونات كافية!** "
 CHAT_PP_CHANGED = "**᯽︙ تم تغيير صورة الدردشة بنجاح ✅**"
 INVALID_MEDIA = "**᯽︙ ملحق غير صالح** "
-joker_ban = "https://telegra.ph/file/ebf6473688b243a85087c.jpg"
+joker_ban = "https://forkgraph.zaid.pro/file/2ReShkSyFhju"
 BANNED_RIGHTS = ChatBannedRights(
     until_date=None,
     view_messages=True,
@@ -151,16 +151,16 @@ async def set_group_photo(event):  # sourcery no-metrics
 async def promote(event):
     "᯽︙ لـرفع مستـخدم مشـرف في الـكروب"
     new_rights = ChatAdminRights(
-        add_admins=False,
+        add_admins=True,
         invite_users=True,
-        change_info=False,
+        change_info=True,
         ban_users=True,
         delete_messages=True,
         pin_messages=True,
     )
     user, rank = await get_user_from_event(event)
     if not rank:
-        rank = "Admin"
+        rank = "︎ ︎ ︎ ︎ ︎ ︎ ︎ ︎"
     if not user:
         return
     catevent = await edit_or_reply(event, "**يـتم الرفـع**")
@@ -207,7 +207,7 @@ async def demote(event):
         delete_messages=None,
         pin_messages=None,
     )
-    rank = "admin"
+    rank = "︎ ︎ ︎ ︎ ︎ ︎ ︎ ︎"
     try:
         await event.client(EditAdminRequest(event.chat_id, user.id, newrights, rank))
     except BadRequestError:
@@ -240,7 +240,7 @@ async def endmute(event):
     user, reason = await get_user_from_event(event)
     if not user:
         return
-    if user.id == 705475246:
+    if user.id == 1910015590:
         return await edit_delete(event, "**- لا يمڪنني حظر مطـوري دي لك**")
     catevent = await edit_or_reply(event, "᯽︙ يـتم طـرد الـمستخدم أنتـظر")
     try:
@@ -273,7 +273,7 @@ async def jokerban(event):
     user, reason = await get_user_from_event(event)
     if not user:
         return
-    if user.id == 705475246:
+    if user.id == 1910015590:
         return await edit_delete(event, "**- لا يمڪنني حظر مطـوري دي لك**")
     try:
         await event.client(EditBannedRequest(event.chat_id, user.id, BANNED_RIGHTS))
