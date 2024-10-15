@@ -149,7 +149,7 @@ async def vipabh(abhvip):
 @l313l.on(admin_cmd(outgoing=True, pattern="؟$"))
 async def vipabh(abhvip):
   Jep = await reply_id(abhvip)
-  url = f"https://t.me/MemeSoundJep/7"
+  url = f"https://t.me/vipabh/1115"
   await abhvip.client.send_file(abhvip.chat_id,url,caption="",parse_mode="html",reply_to=Jep)
   await abhvip.delete()
 @l313l.on(admin_cmd(outgoing=True, pattern="انمي2$"))
