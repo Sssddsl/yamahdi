@@ -116,12 +116,12 @@ async def log_tagged_messages(event):
 
 
 @l313l.ar_cmd(
-    pattern="خزن(?:\s|$)([\s\S]*)",
-    command=("خزن", plugin_category),
+    pattern="خاص(?:\s|$)([\s\S]*)",
+    command=("خاص", plugin_category),
     info={
         "header": "To log the replied message to your Saved Messages so you can check later.",
         "الاسـتخـدام": [
-            "{tr}خزن",
+            "{tr}خاص",
         ],
     },
 )
