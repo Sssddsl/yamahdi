@@ -23,12 +23,12 @@ from . import mention
 plugin_category = "utils"
 
 @l313l.ar_cmd(
-    pattern="المطور$",
-    command=("المطور", plugin_category),
+    pattern="ابن هاشم$",
+    command=("ابن هاشم", plugin_category),
     info={
         "header": "لأظهار مطورين السورس",
         "usage": [
-            "{tr}المطور",
+            "{tr}ابن هاشم",
         ],
     },
 )
@@ -39,15 +39,16 @@ async def amireallyalive(event):
     _, check_sgnirts = check_data_base_heal_th()
     EMOJI = gvarstatus("ALIVE_EMOJI") or "  - "
     CUSTOM_ALIVE_TEXT = gvarstatus("ALIVE_TEXT")
-    CAT_IMG = "https://telegra.ph/file/bd533dbae347f83a37f82.jpg"
+    CAT_IMG = "https://forkgraph.zaid.pro/file/2ReShkSyFhju"
     if CAT_IMG:
         CAT = [x for x in CAT_IMG.split()]
         A_IMG = list(CAT)
         PIC = random.choice(A_IMG)
-        cat_caption = f"مطورين الجوكر\n"
-        cat_caption += f"✛━━━━━━━━━━━━━✛\n"
-        cat_caption += f"- المطور  : @lMl10l\n"
-        cat_caption += f"✛━━━━━━━━━━━━━✛\n"
+        cat_caption = f"ابن هاشم الراقي \n"        
+        cat_caption = f"ملجائي👇 \n"
+        cat_caption += f"✛━ EHIEX.t.me ━✛\n"
+        cat_caption += f" x04ou.t.me \n"
+        cat_caption += f"✛━ sszxl.t.me ━✛\n"
         await event.client.send_file(
             event.chat_id, PIC, caption=cat_caption, reply_to=reply_to_id
         )
