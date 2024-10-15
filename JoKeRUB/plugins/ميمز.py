@@ -140,13 +140,13 @@ async def vipabh(abhvip):
   url = f"https://t.me/MemeSoundJep/2"
   await abhvip.client.send_file(abhvip.chat_id,url,caption="",parse_mode="html",reply_to=Jep)
   await abhvip.delete()
-@l313l.on(admin_cmd(outgoing=True, pattern="روح$"))
+@l313l.on(admin_cmd(outgoing=True, pattern="بوبجي$"))
 async def vipabh(abhvip):
   Jep = await reply_id(abhvip)
-  url = f"https://t.me/MemeSoundJep/6"
+  url = f"https://t.me/vipabh/1134"
   await abhvip.client.send_file(abhvip.chat_id,url,caption="",parse_mode="html",reply_to=Jep)
   await abhvip.delete()
-@l313l.on(admin_cmd(outgoing=True, pattern="انمي1$"))
+@l313l.on(admin_cmd(outgoing=True, pattern="؟$"))
 async def vipabh(abhvip):
   Jep = await reply_id(abhvip)
   url = f"https://t.me/MemeSoundJep/7"
