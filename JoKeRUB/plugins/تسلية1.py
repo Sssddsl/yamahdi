@@ -157,11 +157,11 @@ async def _(event):
     animation_ttl = range(5)
     event = await edit_or_reply(event, "wtf")
     animation_chars = [
-        "What",
-        "What The",
-        "What The F",
-        "What The F Brah",
-        "What The F Brah\nhttps://telegra.ph/file/f3b760e4a99340d331f9b.jpg",
+        "ها",
+        "ها؟؟؟",
+        "ها ها ؟ ؟",
+        "؟ ؟ ها ها",
+        "ها ها \n https://telegra.ph/file/f3b760e4a99340d331f9b.jpg",
     ]
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
