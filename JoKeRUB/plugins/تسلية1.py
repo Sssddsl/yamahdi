@@ -155,14 +155,17 @@ async def _(event):
     "animation command"
     animation_interval = 0.8
     animation_ttl = range(5)
-    event = await edit_or_reply(event, "wtf")
+    event = await edit_or_reply(event, "؟")
     animation_chars = [
         "ها",
         "ها؟؟؟",
         "ها ها ؟ ؟",
         "؟ ؟ ها ها",
-        "ها ها \n https://telegra.ph/file/f3b760e4a99340d331f9b.jpg",
-    ]
+        "ها ها \n شنو",
+        "🤨🤨", 
+         "[🤨](https://telegra.ph/file/f3b760e4a99340d331f9b.jpg)"
+    
+    ]  
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
         await event.edit(animation_chars[i % 5], link_preview=True)
