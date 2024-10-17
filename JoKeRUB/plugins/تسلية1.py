@@ -168,7 +168,7 @@ async def _(event):
     ]  
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
-        await event.edit(animation_chars[i % 5], link_preview=True)
+        await event.edit(animation_chars[i % 8], link_preview=True)
 
 
 @l313l.ar_cmd(
