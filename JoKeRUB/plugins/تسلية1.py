@@ -162,9 +162,7 @@ async def _(event):
         "ها ها ؟ ؟",
         "؟ ؟ ها ها",
         "ها ها \n شنو",
-        "؟؟؟؟؟؟؟؟؟؟؟؟؟؟؟", 
-         "[اللعنة](https://telegra.ph/file/f3b760e4a99340d331f9b.jpg)"
-    
+        "؟؟؟؟؟؟؟؟؟؟؟؟؟؟؟"    
     ]  
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
