@@ -45,7 +45,7 @@ async def amireallyalive(event):
     ms = (end - start).microseconds / 1000
     _, check_sgnirts = check_data_base_heal_th()
     EMOJI = gvarstatus("ALIVE_EMOJI") or "⿻┊‌‎"
-    ALIVE_TEXT = gvarstatus("ALIVE_TEXT") or "**父[ ABH IS WORKING ✓ ](t.me/k_4x1)父**"
+    ALIVE_TEXT = gvarstatus("ALIVE_TEXT") or "[ ABH IS WORKING ✓ ](t.me/k_4x1)"
     HuRe_IMG = gvarstatus("ALIVE_PIC") or Config.A_PIC
     l313l_caption = gvarstatus("ALIVE_TEMPLATE") or temp
     caption = l313l_caption.format(
@@ -93,4 +93,4 @@ temp = """{ALIVE_TEXT}
 **‌‎{EMOJI}‌‎𝚄𝙿𝚃𝙸𝙼𝙴 𖠄 `{uptime}`** ٫
 ‌‎**{EMOJI}‌‎‌‎𝙿𝙸𝙽𝙶 𖠄 `{ping}`** ٫
 ‌‎**{EMOJI}‌‎‌‎𝚂𝙴𝚃𝚄𝙿 𝙳𝙰𝚃𝙴 𖠄 `{Tare5}`** ٫
-**𖠄 SOURSE IS WORKING 𖠄**"""
+**𖠄 SOURSE IS WORKING **"""
