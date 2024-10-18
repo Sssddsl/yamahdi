@@ -331,7 +331,7 @@ async def vipabh(abhvip):
   url = f"https://t.me/vipabh/571"
   await abhvip.client.send_file(abhvip.chat_id,url,caption="",parse_mode="html",reply_to=Jep)
   await abhvip.delete()
-@l313l.on(admin_cmd(outgoing=True, pattern="صباح القنادر$"))
+@l313l.on(admin_cmd(outgoing=True, pattern="وخر$"))
 async def vipabh(abhvip):
   Jep = await reply_id(abhvip)
   url = f"https://t.me/vipabh/589"
