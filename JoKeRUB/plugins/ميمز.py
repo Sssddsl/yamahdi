@@ -96,10 +96,10 @@ async def aljoker313(joker313):
   await joker313.client.send_file(joker313.chat_id,url,caption="᯽︙ BY : @jepthon 🎀",parse_mode="html")
   await joker313.delete()
     
-@l313l.on(admin_cmd(outgoing=True, pattern="لطمية$"))
+@l313l.on(admin_cmd(outgoing=True, pattern="شعر$"))
 async def jepvois(vois):
-  rl = random.randint(10,138)
-  url = f"https://t.me/x04ou/{rl}"
+  rl = random.randint(2,101)
+  url = f"https://t.me/L1BBBL/{rl}"
   await vois.client.send_file(vois.chat_id,url,caption="᯽︙ BY : @jepthon 🎀",parse_mode="html")
   await vois.delete()
 @l313l.on(admin_cmd(outgoing=True, pattern="القران$"))
