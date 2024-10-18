@@ -380,10 +380,10 @@ async def vipabh(abhvip):
   url = f"https://t.me/VIPABH/597"
   await abhvip.client.send_file(abhvip.chat_id,url,caption="",parse_mode="html",reply_to=Jep)
   await abhvip.delete()
-@l313l.on(admin_cmd(outgoing=True, pattern="يعني$"))
+@l313l.on(admin_cmd(outgoing=True, pattern="فلا$"))
 async def vipabh(abhvip):
   Jep = await reply_id(abhvip)
-  url = f"https://t.me/VIPABH/54"
+  url = f"https://t.me/VIPABH/1160"
   await abhvip.client.send_file(abhvip.chat_id,url,caption="",parse_mode="html",reply_to=Jep)
   await abhvip.delete()
 @l313l.on(admin_cmd(outgoing=True, pattern="طاح$"))
@@ -413,7 +413,7 @@ async def vipabh(abhvip):
 @l313l.on(admin_cmd(outgoing=True, pattern="ط$"))
 async def vipabh(abhvip):
   Jep = await reply_id(abhvip)
-  url = f"https://t.me/MemeSoundJep/736"
+  url = f"https://t.me/vipabh/736"
   await abhvip.client.send_file(abhvip.chat_id,url,caption="",parse_mode="html",reply_to=Jep)
   await abhvip.delete()
 @l313l.on(admin_cmd(outgoing=True, pattern="يامرحبا$"))
