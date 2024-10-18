@@ -14,8 +14,7 @@ from telethon.errors.rpcerrorlist import YouBlockedUserError
 from JoKeRUB import l313l
 from ..helpers.utils import reply_id
 plugin_category = "tools"
-# الي يخمط ويكول من كتابتي الا امه انيجه وقد اعذر من انذر
-    
+
 @l313l.on(admin_cmd(pattern="حالتي ?(.*)"))
 async def _(event):
     await event.edit("**- يتم التاكد من حالتك اذا كنت محظور او لا**")
@@ -105,15 +104,9 @@ async def jepvois(vois):
   await vois.delete()
 @l313l.on(admin_cmd(outgoing=True, pattern="لطمية$"))
 async def jepvois(vois):
-    success = False
-    while not success:
-        try:
-            rl = random.randint(10, 140)
-            url = f"https://t.me/x04ou/{rl}"
-            await vois.client.send_file(vois.chat_id, url)
-            success = True  
-        except Exception as e:
-            pass
+    rl = random.randint(2, 101)
+    url = f"https://t.me/x04ou/{rl}"
+    await vois.client.send_file(vois.chat_id, url)
     await vois.delete()
 @l313l.on(admin_cmd(outgoing=True, pattern="ثيم$"))
 async def jepThe(theme):
