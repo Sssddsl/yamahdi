@@ -89,7 +89,7 @@ async def _(event):
         await event.edit(
             f"الايميل الخاص هو `{response.message.message}`\n[ اضغط هنا لرؤية من رسائل الايميل الواردة]({l313lmail})"
         )
-@l313l.on(admin_cmd(outgoing=True, pattern="غنيلي$"))
+        @l313l.on(admin_cmd(outgoing=True, pattern="غنيلي$"))
 async def aljoker313(joker313):
   rl = random.randint(1,385)
   url = f"https://t.me/DwDi1/{rl}"
@@ -102,7 +102,7 @@ async def jepvois(vois):
   url = f"https://t.me/L1BBBL/{rl}"
   await vois.client.send_file(vois.chat_id,url,caption="᯽︙ BY : @jepthon 🎀",parse_mode="html")
   await vois.delete()
-@l313l.on(admin_cmd(outgoing=True, pattern="القران$"))
+@l313l.on(admin_cmd(outgoing=True, pattern="قران$"))
 async def jepvois(vois):
   rl = random.randint(2,101)
   url = f"https://t.me/QuraanJep/{rl}"
