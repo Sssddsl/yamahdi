@@ -100,7 +100,7 @@ async def aljoker313(joker313):
 async def jepvois(vois):
   rl = random.randint(10,138)
   url = f"https://t.me/x04ou/{rl}"
-  await vois.client.send_file(vois.chat_id,url,caption="صلي على محمد واسمع")
+  await vois.client.send_file(vois.chat_id,url,caption="᯽︙ BY : @jepthon 🎀",parse_mode="html")
   await vois.delete()
 @l313l.on(admin_cmd(outgoing=True, pattern="القران$"))
 async def jepvois(vois):
