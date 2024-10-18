@@ -14,7 +14,8 @@ from telethon.errors.rpcerrorlist import YouBlockedUserError
 from JoKeRUB import l313l
 from ..helpers.utils import reply_id
 plugin_category = "tools"
-
+# الي يخمط ويكول من كتابتي الا امه انيجه وقد اعذر من انذر
+    
 @l313l.on(admin_cmd(pattern="حالتي ?(.*)"))
 async def _(event):
     await event.edit("**- يتم التاكد من حالتك اذا كنت محظور او لا**")
@@ -89,7 +90,8 @@ async def _(event):
         await event.edit(
             f"الايميل الخاص هو `{response.message.message}`\n[ اضغط هنا لرؤية من رسائل الايميل الواردة]({l313lmail})"
         )
-        @l313l.on(admin_cmd(outgoing=True, pattern="غنيلي$"))
+#السلام على الحسين وعلى الارواح التي حلت بفنائك ولعن الله قاتليك
+@l313l.on(admin_cmd(outgoing=True, pattern="غنيلي$"))
 async def aljoker313(joker313):
   rl = random.randint(1,385)
   url = f"https://t.me/DwDi1/{rl}"
