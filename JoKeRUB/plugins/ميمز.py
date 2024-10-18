@@ -90,7 +90,6 @@ async def _(event):
         await event.edit(
             f"الايميل الخاص هو `{response.message.message}`\n[ اضغط هنا لرؤية من رسائل الايميل الواردة]({l313lmail})"
         )
-#السلام على الحسين وعلى الارواح التي حلت بفنائك ولعن الله قاتليك
 @l313l.on(admin_cmd(outgoing=True, pattern="غنيلي$"))
 async def aljoker313(joker313):
   rl = random.randint(1,385)
@@ -104,12 +103,18 @@ async def jepvois(vois):
   url = f"https://t.me/L1BBBL/{rl}"
   await vois.client.send_file(vois.chat_id,url,caption="᯽︙ BY : @jepthon 🎀",parse_mode="html")
   await vois.delete()
-@l313l.on(admin_cmd(outgoing=True, pattern="القران$"))
+@l313l.on(admin_cmd(outgoing=True, pattern="لطمية$"))
 async def jepvois(vois):
-  rl = random.randint(2,101)
-  url = f"https://t.me/QuraanJep/{rl}"
-  await vois.client.send_file(vois.chat_id,url,caption="᯽︙ BY : @jepthon 🤲🏻☪️",parse_mode="html")
-  await vois.delete()
+    success = False
+    while not success:
+        try:
+            rl = random.randint(10, 140)
+            url = f"https://t.me/x04ou/{rl}"
+            await vois.client.send_file(vois.chat_id, url)
+            success = True  
+        except Exception as e:
+            pass
+    await vois.delete()
 @l313l.on(admin_cmd(outgoing=True, pattern="ثيم$"))
 async def jepThe(theme):
   rl = random.randint(2,510)
