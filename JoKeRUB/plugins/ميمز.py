@@ -93,15 +93,15 @@ async def _(event):
 #السلام على الحسين وعلى الارواح التي حلت بفنائك ولعن الله قاتليك
 @l313l.on(admin_cmd(outgoing=True, pattern="لطميه$"))
 async def aljoker313(joker313):
-  rl = random.randint(10,140)
+  rl = random.randint(4,34)
   url = f"https://t.me/x04ou/{rl}"
-  await joker313.client.send_file(joker313.chat_id,url,caption="",parse_mode="html")
+  await joker313.client.send_file(joker313.chat_id,url,caption="᯽︙  اذكر القائم",parse_mode="html")
   await joker313.delete()
     
-@l313l.on(admin_cmd(outgoing=True, pattern="شعر$"))
+@l313l.on(admin_cmd(outgoing=True, pattern="افتار$"))
 async def jepvois(vois):
   rl = random.randint(2,101)
-  url = f"https://t.me/L1BBBL/{rl}"
+  url = f"https://t.me/themuaol/{rl}"
   await vois.client.send_file(vois.chat_id,url,caption="᯽︙  اذكر القائم",parse_mode="html")
   await vois.delete()
 @l313l.on(admin_cmd(outgoing=True, pattern="قران$"))
