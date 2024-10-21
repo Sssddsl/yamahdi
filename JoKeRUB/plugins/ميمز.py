@@ -14,7 +14,6 @@ from telethon.errors.rpcerrorlist import YouBlockedUserError
 from JoKeRUB import l313l
 from ..helpers.utils import reply_id
 plugin_category = "tools"
-# الي يخمط ويكول من كتابتي الا امه انيجه وقد اعذر من انذر
     
 @l313l.on(admin_cmd(pattern="حالتي ?(.*)"))
 async def _(event):
@@ -93,14 +92,14 @@ async def _(event):
 #السلام على الحسين وعلى الارواح التي حلت بفنائك ولعن الله قاتليك
 @l313l.on(admin_cmd(outgoing=True, pattern="لطميه$"))
 async def aljoker313(joker313):
-  rl = random.randint(4,34)
+  rl = random.randint(10,115)
   url = f"https://t.me/x04ou/{rl}"
   await joker313.client.send_file(joker313.chat_id,url,caption="᯽︙  اذكر القائم",parse_mode="html")
   await joker313.delete()
     
 @l313l.on(admin_cmd(outgoing=True, pattern="افتار$"))
 async def jepvois(vois):
-  rl = random.randint(2,101)
+  rl = random.randint(4,35)
   url = f"https://t.me/themuaol/{rl}"
   await vois.client.send_file(vois.chat_id,url,caption="᯽︙  اذكر القائم",parse_mode="html")
   await vois.delete()
@@ -112,7 +111,7 @@ async def jepvois(vois):
   await vois.delete()
 @l313l.on(admin_cmd(outgoing=True, pattern="لطمية$"))
 async def jepThe(theme):
-  rl = random.randint(2,140)
+  rl = random.randint(19,115)
   url = f"https://t.me/x04ou/{rl}"
   await theme.client.send_file(theme.chat_id,url,caption="᯽︙  اذكر القائم ",parse_mode="html")
   await theme.delete()
