@@ -13,8 +13,8 @@ plugin_category = "extra"
 
 #by ~ @lMl10l
 @l313l.ar_cmd(
-    pattern="اذكار الصباح",
-    command=("اذكار الصباح", plugin_category),)
+    pattern="عاشوراء",
+    command=("عاشوراء", plugin_category),)
 async def _(event):
      if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
            roze = random.choice(razan)
